@@ -12,9 +12,11 @@ var words = [{"word": "amin", "edef": "khar", "fdef": "hi"},
     {"word": "Finished", "edef": "", "fdef": ""}];
 
 function BuildCard(id) {
-    $("#" + id + " #wordTitle strong").text(words[currentCard]["word"]);
-    $("#" + id + " #wordDef").text(words[currentCard]["edef"]);
-    $("#" + id + " #wordDefF").text(words[currentCard]["fdef"]);
+    $("#" + id + " .wordTitle strong").text(words[currentCard]["word"]);
+    $("#" + id + " .wordDef").text(words[currentCard]["edef"]);
+    $("#" + id + " .wordDefF").text(words[currentCard]["fdef"]);
+    $("#" + id + " .wordDef").css("display","none")
+    $("#" + id + " .wordDefF").css("display","none")
 }
 
 function SetNextCardIndex(step) {
@@ -142,8 +144,10 @@ function FlipCard() {
         return;
 
     animationLock = true;
-    $('#current').css("perspective","0px");
-    $('#current').css("rotateX","180deg");
+    $("#current").css("perspective","0px");
+    $("#current").css("rotateX","180deg");
+    $("#current .wordDef").toggle();
+    $("#current .wordDefF").toggle();
     $('#current').transition({
         perspective:"500px",
         rotateX: "0deg"
@@ -251,9 +255,9 @@ $(document).ready(function () {
             NextCard();
         else if (event.keyCode == 37)
             PreviousCard();
-        else if (event.keyCode == 38)
-            DeleteCard();
         else if (event.keyCode == 40)
+            DeleteCard();
+        else if (event.keyCode == 38)
             FlipCard();
     })
 })
