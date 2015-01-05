@@ -3,7 +3,7 @@ h1 {
 }
 
 h3 {
-    color: grey;
+    color: #ffffff;
 }
 
 p {
@@ -23,10 +23,6 @@ div.card {
     padding: 20%;
 }
 
-div.box.swipeleft {
-    background-color: #7ACEF4;
-}
-
-.MouseOverDiv {
-    background-color: #c3009f;
+body {
+    padding-top: 65px;
 }

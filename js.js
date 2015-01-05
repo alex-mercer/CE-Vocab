@@ -262,6 +262,10 @@ $(document).ready(function () {
             DeleteCard();
         else if (event.keyCode == 38)
             FlipCard();
+        else
+            return;
+        e.preventDefault()
+
     })
 })
 ;

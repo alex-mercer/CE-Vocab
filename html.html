@@ -4,18 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap.css" rel="stylesheet">
-    <link href="jquery.mobile-1.4.5.min.css" rel="stylesheet">
     <link href="css.css" rel="stylesheet">
     <script src="jquery-2.1.3.min.js"></script>
-    <script src="jquery.mobile-1.4.5.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="jquery.mobile.custom.min.js"></script>
     <script src="jquery.cookie.js"></script>
     <script src="jquery.transit.min.js"></script>
     <script src="js.js"></script>
     <title></title>
 </head>
 <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../" class="navbar-brand">CE-Vocab</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="themes">
+                        <li><a href="../default/">Default</a></li>
+                        <li class="divider"></li>
+                        <li><a href="../cerulean/">Cerulean</a></li>
+                        <li><a href="../cosmo/">Cosmo</a></li>
+                        <li><a href="../cyborg/">Cyborg</a></li>
+                        <li><a href="../darkly/">Darkly</a></li>
+                        <li><a href="../flatly/">Flatly</a></li>
+                        <li><a href="../journal/">Journal</a></li>
+                        <li><a href="../lumen/">Lumen</a></li>
+                        <li><a href="../paper/">Paper</a></li>
+                        <li><a href="../readable/">Readable</a></li>
+                        <li><a href="../sandstone/">Sandstone</a></li>
+                        <li><a href="../simplex/">Simplex</a></li>
+                        <li><a href="../slate/">Slate</a></li>
+                        <li><a href="../spacelab/">Spacelab</a></li>
+                        <li><a href="../superhero/">Superhero</a></li>
+                        <li><a href="../united/">United</a></li>
+                        <li><a href="../yeti/">Yeti</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../help/">Help</a>
+                </li>
+                <li>
+                    <a href="http://news.bootswatch.com">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Download <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="download">
+                        <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                        <li><a href="./bootstrap.css">bootstrap.css</a></li>
+                        <li class="divider"></li>
+                        <li><a href="./variables.less">variables.less</a></li>
+                        <li><a href="./bootswatch.less">bootswatch.less</a></li>
+                        <li class="divider"></li>
+                        <li><a href="./_variables.scss">_variables.scss</a></li>
+                        <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
+                    </ul>
+                </li>
+            </ul>
 
-    <p id="emad"> <strong> fun with the vocabulary </strong> </p>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
 
     <div style="height: 400px; margin:auto ; border: 3px dashed #000000; position: relative; width: 80%; overflow: hidden"  >
         <div id="current" class="card" style="background-color: grey;left:0%">
