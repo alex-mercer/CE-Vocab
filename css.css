@@ -1,0 +1,32 @@
+h1 {
+    color: #000000;
+}
+
+h3 {
+    color: grey;
+}
+
+p {
+    text-align: center;
+    color: #800072;
+    font-size: 50px;
+    padding-top: 30px;
+}
+
+div.card {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    margin: auto;
+    text-align: center;
+    padding: 20%;
+}
+
+div.box.swipeleft {
+    background-color: #7ACEF4;
+}
+
+.MouseOverDiv {
+    background-color: #c3009f;
+}
