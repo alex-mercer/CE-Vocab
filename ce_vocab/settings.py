@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,12 +75,20 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+
+tmp = dj_database_url.config()
+if tmp:
+    DATABASES['default'] = tmp
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -93,6 +101,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
