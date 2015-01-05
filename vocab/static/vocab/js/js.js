@@ -148,6 +148,7 @@ function FlipCard() {
     $("#current").css("perspective","0px");
     $("#current").css("transform", "rotateX(180deg)");
     $("#current .wordDef").toggle();
+    console.log("agsasdfasdf")
     $("#current .wordDefF").toggle();
     $('#current').transition({
         perspective:"500px",
