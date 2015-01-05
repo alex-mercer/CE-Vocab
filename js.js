@@ -41,12 +41,14 @@ function NextCard() {
     $('#next').css("left", "100%");
     $('#next').css("display", "inline-block");
     $('#next').css("opacity", 0);
-    $('#next').animate({
+    //$('#current').css("opacity",1);
+    //$('#current').css("left", "0%");
+    $('#next').transition({
         opacity: "1",
         left: "0%"
     }, 500);
 
-    $('#current').animate({
+    $('#current').transition({
         opacity: "0",
         left: "-100%"
     }, 500, function () {
@@ -72,12 +74,12 @@ function PreviousCard() {
     $('#next').css("left", "-100%");
     $('#next').css("display", "inline-block");
     $('#next').css("opacity", 0);
-    $('#next').animate({
+    $('#next').transition({
         opacity: "1",
         left: "0%"
     }, 500);
 
-    $('#current').animate({
+    $('#current').transition({
         opacity: "0",
         left: "100%"
     }, 500, function () {
@@ -112,12 +114,13 @@ function DeleteCard() {
     $('#next').css("left", "100%");
     $('#next').css("display", "inline-block");
     $('#next').css("opacity", 0);
-    $('#next').animate({
+    $('#current').css("top", "0%");
+    $('#next').transition({
         opacity: "1",
         left: "0%"
     }, 500);
 
-    $('#current').animate({
+    $('#current').transition({
         opacity: "0",
         top: "100%"
     }, 500, function () {
@@ -132,11 +135,98 @@ function DeleteCard() {
     });
 }
 
+function FlipCard() {
+    if (animationLock == true)
+        return;
+    if (currentCard == words.length - 1)
+        return;
+
+    animationLock = true;
+    $('#current').css("perspective","0px");
+    $('#current').css("rotateX","180deg");
+    $('#current').transition({
+        perspective:"500px",
+        rotateX: "0deg"
+    }, 500, function () {
+        animationLock = false;
+    });
+}
+
 $(document).ready(function () {
+
+    //Swipe up/down start
+    var supportTouch = $.support.touch,
+        scrollEvent = "touchmove scroll",
+        touchStartEvent = supportTouch ? "touchstart" : "mousedown",
+        touchStopEvent = supportTouch ? "touchend" : "mouseup",
+        touchMoveEvent = supportTouch ? "touchmove" : "mousemove";
+    $.event.special.swipeupdown = {
+        setup: function () {
+            var thisObject = this;
+            var $this = $(thisObject);
+            $this.bind(touchStartEvent, function (event) {
+                var data = event.originalEvent.touches ?
+                        event.originalEvent.touches[0] :
+                        event,
+                    start = {
+                        time: (new Date).getTime(),
+                        coords: [data.pageX, data.pageY],
+                        origin: $(event.target)
+                    },
+                    stop;
+
+                function moveHandler(event) {
+                    if (!start) {
+                        return;
+                    }
+                    var data = event.originalEvent.touches ?
+                        event.originalEvent.touches[0] :
+                        event;
+                    stop = {
+                        time: (new Date).getTime(),
+                        coords: [data.pageX, data.pageY]
+                    };
+
+                    // prevent scrolling
+                    if (Math.abs(start.coords[1] - stop.coords[1]) > 10) {
+                        event.preventDefault();
+                    }
+                }
+
+                $this
+                    .bind(touchMoveEvent, moveHandler)
+                    .one(touchStopEvent, function (event) {
+                        $this.unbind(touchMoveEvent, moveHandler);
+                        if (start && stop) {
+                            if (stop.time - start.time < 1000 &&
+                                Math.abs(start.coords[1] - stop.coords[1]) > 30 &&
+                                Math.abs(start.coords[0] - stop.coords[0]) < 75) {
+                                start.origin
+                                    .trigger("swipeupdown")
+                                    .trigger(start.coords[1] > stop.coords[1] ? "swipeup" : "swipedown");
+                            }
+                        }
+                        start = stop = undefined;
+                    });
+            });
+        }
+    };
+    $.each({
+        swipedown: "swipeupdown",
+        swipeup: "swipeupdown"
+    }, function (event, sourceEvent) {
+        $.event.special[event] = {
+            setup: function () {
+                $(this).bind(sourceEvent, $.noop);
+            }
+        };
+    });
+    //Swipe up/down end
+
     mark = $.cookie(pageID + "markarr");
     if(!mark)
         mark = Array(words.length+1).join('1');
-
+    currentCard=-1;
     SetNextCardIndex(1);
     BuildCard("current");
 
@@ -152,13 +242,19 @@ $(document).ready(function () {
         DeleteCard();
     });
 
+    $('div.card').on("swipeup", function (event) {
+        FlipCard();
+    });
+
     $(document).keydown(function (event) {
         if (event.keyCode == 39)
             NextCard();
-        if (event.keyCode == 37)
+        else if (event.keyCode == 37)
             PreviousCard();
-        if (event.keyCode == 38)
+        else if (event.keyCode == 38)
             DeleteCard();
+        else if (event.keyCode == 40)
+            FlipCard();
     })
 })
 ;
