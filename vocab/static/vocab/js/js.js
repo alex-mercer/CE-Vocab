@@ -2,15 +2,7 @@
  * Created by EmadPC on 12/31/2014.
  */
 var animationLock = false;
-var currentCard = 0;
-var pageID = 0;
-var mark;
 var transitionTime = 300;
-var words = [{"word": "amin", "edef": "khar", "fdef": "hi"},
-    {"word": "emad", "edef": "khob", "fdef": "hi"},
-    {"word": "mamad", "edef": "good", "fdef": "hi"},
-    {"word": "shir", "edef": "gooooooooooooooooood", "fdef": "hi"},
-    {"word": "Finished", "edef": "", "fdef": ""}];
 
 function BuildCard(id) {
     $("#" + id + " .wordTitle strong").text(words[currentCard]["word"]);
@@ -44,8 +36,6 @@ function NextCard() {
     $('#next').css("left", "100%");
     $('#next').css("display", "inline-block");
     $('#next').css("opacity", 0);
-    //$('#current').css("opacity",1);
-    //$('#current').css("left", "0%");
     $('#next').transition({
         opacity: "1",
         left: "0%"
@@ -148,7 +138,6 @@ function FlipCard() {
     $("#current").css("perspective","0px");
     $("#current").css("transform", "rotateX(180deg)");
     $("#current .wordDef").toggle();
-    console.log("agsasdfasdf")
     $("#current .wordDefF").toggle();
     $('#current').transition({
         perspective:"500px",
@@ -231,13 +220,6 @@ $(document).ready(function () {
     });
     //Swipe up/down end
 
-    mark = $.cookie(pageID + "markarr");
-    if(!mark)
-        mark = Array(words.length+1).join('1');
-    currentCard=-1;
-    SetNextCardIndex(1);
-    BuildCard("current");
-
     $('div.card').on("swipeleft", function (event) {
         NextCard();
     });
@@ -265,7 +247,7 @@ $(document).ready(function () {
             FlipCard();
         else
             return;
-        e.preventDefault()
+        event.preventDefault()
 
     })
 })

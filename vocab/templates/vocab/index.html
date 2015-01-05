@@ -28,27 +28,14 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Units<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" aria-labelledby="themes">
-                        <li><a href="../default/">Default</a></li>
+                        <li><a href="../default/">All units</a></li>
                         <li class="divider"></li>
-                        <li><a href="../cerulean/">Cerulean</a></li>
-                        <li><a href="../cosmo/">Cosmo</a></li>
-                        <li><a href="../cyborg/">Cyborg</a></li>
-                        <li><a href="../darkly/">Darkly</a></li>
-                        <li><a href="../flatly/">Flatly</a></li>
-                        <li><a href="../journal/">Journal</a></li>
-                        <li><a href="../lumen/">Lumen</a></li>
-                        <li><a href="../paper/">Paper</a></li>
-                        <li><a href="../readable/">Readable</a></li>
-                        <li><a href="../sandstone/">Sandstone</a></li>
-                        <li><a href="../simplex/">Simplex</a></li>
-                        <li><a href="../slate/">Slate</a></li>
-                        <li><a href="../spacelab/">Spacelab</a></li>
-                        <li><a href="../superhero/">Superhero</a></li>
-                        <li><a href="../united/">United</a></li>
-                        <li><a href="../yeti/">Yeti</a></li>
+                        {% for unit in units %}
+                            <li><a href="unit/{{ unit.name }}/">{{ unit.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
                 <li>
@@ -95,5 +82,29 @@
             <h3 class="wordDefF"> Persion definition </h3>
         </div>
     </div>
+    <script type="text/javascript">
+        var currentCard = 0;
+        var mark;
+        var pageID = 0;
+        var words = [
+            {#            {"word": "amin", "edef": "khar", "fdef": "hi"},#}
+            {#            {"word": "emad", "edef": "khob", "fdef": "hi"},#}
+            {#            {"word": "mamad", "edef": "good", "fdef": "hi"},#}
+            {#            {"word": "shir", "edef": "gooooooooooooooooood", "fdef": "hi"},#}
+            {#            {"word": "Finished", "edef": "", "fdef": ""}#}
+        ];
+        {% for entry in entries %}
+            words.push({"word": "{{ entry.word }}", "edef": "{{ entry.defintion_en|default:":(" }}", "fdef": "{{ entry.defintion_fa|default:":(" }}"});
+        {% endfor %}
+        words.push({"word": "Finished", "edef": "", "fdef": ""});
+        $(document).ready(function () {
+            mark = $.cookie(pageID + "markarr");
+            if (!mark)
+                mark = Array(words.length + 1).join('1');
+            currentCard = -1;
+            SetNextCardIndex(1);
+            BuildCard("current");
+        })
+    </script>
 </body>
 </html>

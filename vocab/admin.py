@@ -1,3 +1,8 @@
 from django.contrib import admin
+import models
 
-# Register your models here.
+class EntryAdmin(admin.ModelAdmin):
+    list_display = ('word','unit')
+
+admin.site.register(models.BookUnit)
+admin.site.register(models.Entry,EntryAdmin)
