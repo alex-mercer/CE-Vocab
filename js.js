@@ -5,6 +5,7 @@ var animationLock = false;
 var currentCard = 0;
 var pageID = 0;
 var mark;
+var transitionTime = 300;
 var words = [{"word": "amin", "edef": "khar", "fdef": "hi"},
     {"word": "emad", "edef": "khob", "fdef": "hi"},
     {"word": "mamad", "edef": "good", "fdef": "hi"},
@@ -48,12 +49,12 @@ function NextCard() {
     $('#next').transition({
         opacity: "1",
         left: "0%"
-    }, 500);
+    }, transitionTime);
 
     $('#current').transition({
         opacity: "0",
         left: "-100%"
-    }, 500, function () {
+    }, transitionTime, function () {
         $('#current').css("display", "none")
 
         $('#next').attr("id", "tmp");
@@ -79,12 +80,12 @@ function PreviousCard() {
     $('#next').transition({
         opacity: "1",
         left: "0%"
-    }, 500);
+    }, transitionTime);
 
     $('#current').transition({
         opacity: "0",
         left: "100%"
-    }, 500, function () {
+    }, transitionTime, function () {
         $('#current').css("display", "none")
 
         $('#next').attr("id", "tmp");
@@ -120,12 +121,12 @@ function DeleteCard() {
     $('#next').transition({
         opacity: "1",
         left: "0%"
-    }, 500);
+    }, transitionTime);
 
     $('#current').transition({
         opacity: "0",
         top: "100%"
-    }, 500, function () {
+    }, transitionTime, function () {
         $('#current').css("display", "none");
         $('#current').css("top", "0%");
 
@@ -145,19 +146,21 @@ function FlipCard() {
 
     animationLock = true;
     $("#current").css("perspective","0px");
-    $("#current").css("rotateX","180deg");
+    $("#current").css("transform", "rotateX(180deg)");
     $("#current .wordDef").toggle();
     $("#current .wordDefF").toggle();
     $('#current').transition({
         perspective:"500px",
-        rotateX: "0deg"
-    }, 500, function () {
+        transform: "rotateX(0deg)"
+    }, transitionTime, function () {
         animationLock = false;
     });
 }
 
 $(document).ready(function () {
-
+    //Configuration
+    $.event.special.swipe.horizontalDistanceThreshold = 15;
+    $.event.special.swipe.verticalDistanceThreshold = 150;
     //Swipe up/down start
     var supportTouch = $.support.touch,
         scrollEvent = "touchmove scroll",
