@@ -114,7 +114,7 @@
         {#            {"word": "Finished", "edef": "", "fdef": ""}#}
     ];
     {% for entry in entries %}
-        words.push({"word": "{{ entry.word }}", "edef": "{{ entry.defintion_en|default:":(" }}", "fdef": "{{ entry.defintion_fa|default:":(" }}"});
+        words.push({"word": "{{ entry.word }}", "edef": "{{ entry.definition_en|default:":(" }}", "fdef": "{{ entry.definition_fa|default:":(" }}"});
     {% endfor %}
     words.push({"word": "Finished", "edef": "", "fdef": ""});
     $(document).ready(function () {
