@@ -220,21 +220,15 @@ $(document).ready(function () {
     });
     //Swipe up/down end
 
-    $('div.card').on("swipeleft", function (event) {
-        NextCard();
-    });
+    $('div.card').on("swipeleft", function (event) {NextCard();});
+    $('#next-area').on("click", function (event) {NextCard();});
 
-    $('div.card').on("swiperight", function (event) {
-        PreviousCard();
-    });
+    $('div.card').on("swiperight", function (event) {PreviousCard();});
+    $('#previous-area').on("click", function (event) {PreviousCard();});
 
-    $('div.card').on("swipedown", function (event) {
-        DeleteCard();
-    });
+    $('div.card').on("swipedown", function (event) {DeleteCard();});
 
-    $('div.card').on("swipeup", function (event) {
-        FlipCard();
-    });
+    $('div.card').on("swipeup", function (event) {FlipCard();});
 
     $(document).keydown(function (event) {
         if (event.keyCode == 39)
