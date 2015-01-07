@@ -16,13 +16,20 @@ p {
 div.card {
     width: 100%;
     height: 100%;
-    display: block;
+    display: inline-block;
     position: absolute;
     margin: auto;
     text-align: center;
-    padding: 20%;
+    padding: 10%;
 }
 
 body {
     padding-top: 65px;
+}
+
+.word-edit-button {
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    z-index: 10;
 }
