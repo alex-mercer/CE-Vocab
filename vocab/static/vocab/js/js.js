@@ -5,11 +5,13 @@ var animationLock = false;
 var transitionTime = 300;
 
 function BuildCard(id) {
-    $("#" + id + " .wordTitle strong").text(words[currentCard]["word"]);
-    $("#" + id + " .wordDef").text(words[currentCard]["edef"]);
-    $("#" + id + " .wordDefF").text(words[currentCard]["fdef"]);
-    $("#" + id + " .wordDef").css("display","none")
-    $("#" + id + " .wordDefF").css("display","none")
+    $("#" + id + " .wordTitle strong").html(words[currentCard]["word"]);
+    $("#" + id + " .word-def-en").html(words[currentCard]["edef"].replace(/\n/g, "<br />"));
+    $("#" + id + " .word-def-fa").html(words[currentCard]["fdef"].replace(/\n/g, "<br />"));
+    $("#" + id + " .word-example").html(words[currentCard]["example"].replace(/\n/g, "<br />"));
+    $("#" + id + " .word-def-en").css("display", "none")
+    $("#" + id + " .word-def-fa").css("display", "none")
+    $("#" + id + " .word-example").css("display", "none")
 }
 
 function SetNextCardIndex(step) {
@@ -23,6 +25,32 @@ function SetNextCardIndex(step) {
     }
     while (mark[currentCard] == '0');
     return 1;
+}
+
+function SetUnit(unit) {
+    currentUnit = unit;
+    words = []
+    for (i = 0; i < all_words.length; i++)
+        if (currentUnit == -1 || all_words[i]['unit'] == currentUnit)
+            words.push(all_words[i]);
+    words.push({"word": "Finished", "edef": "", "fdef": "", "example": ""});
+    mark = $.cookie("cevocab_unit_" + currentUnit);
+    if (!mark || mark.length != words.length) {
+        mark = Array(words.length + 1).join('1');
+        UpdateCookie();
+    }
+    currentCard = -1;
+    SetNextCardIndex(1);
+    BuildCard("current");
+}
+
+function SetUnitFancy(unit) {
+    $('#navbar-main').collapse('hide');
+    setTimeout(function () {
+        $('#current').fadeOut(function () {
+            SetUnit(unit)
+        }).delay(400).fadeIn();
+    }, 300);
 }
 
 function NextCard() {
@@ -87,7 +115,7 @@ function PreviousCard() {
 }
 
 function UpdateCookie() {
-    $.cookie(pageID + "markarr", mark, {expires: 69});
+    $.cookie("cevocab_unit_" + currentUnit, mark, {expires: 69});
 }
 
 function DeleteCard() {
@@ -137,8 +165,9 @@ function FlipCard() {
     animationLock = true;
     $("#current").css("perspective","0px");
     $("#current").css("transform", "rotateX(180deg)");
-    $("#current .wordDef").toggle();
-    $("#current .wordDefF").toggle();
+    $("#current .word-def-en").toggle();
+    $("#current .word-def-fa").toggle();
+    $("#current .word-example").toggle();
     $('#current').transition({
         perspective:"500px",
         transform: "rotateX(0deg)"
@@ -148,7 +177,9 @@ function FlipCard() {
 }
 
 function RestoreCards() {
-
+    mark = Array(words.length + 1).join('1');
+    UpdateCookie();
+    SetUnitFancy(currentUnit);
 }
 
 $(document).ready(function () {

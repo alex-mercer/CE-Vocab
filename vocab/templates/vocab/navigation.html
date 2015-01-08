@@ -10,6 +10,14 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
+                <li>
+                    <a href="contribute">Add Word</a>
+                </li>
+
+            <li><a href="/about">About Us</a></li>
+            </ul>
+            {% if entries %}
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Units<span
                             class="caret"></span></a>
@@ -17,20 +25,13 @@
                         <li><a href="../default/">All units</a></li>
                         <li class="divider"></li>
                         {% for unit in units %}
-                            <li><a href="unit/{{ unit.name }}/">{{ unit.name }}</a></li>
+                            <li><a href="#" onclick="SetUnitFancy({{ unit.id }})">{{ unit.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
-                <li>
-                    <a href="contribute">Add Word</a>
-                </li>
-                <li>
-                    <a href="#">Restore Cards</a>
-                </li>
+                <li><a href="#" onclick="RestoreCards()">Restore Cards</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/about">About Us</a></li>
-            </ul>
+        {% endif %}
         </div>
     </div>
 </div>
