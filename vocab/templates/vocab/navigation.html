@@ -1,0 +1,36 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+        <a href="/" class="navbar-brand">CE-Vocab</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Units<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="themes">
+                        <li><a href="../default/">All units</a></li>
+                        <li class="divider"></li>
+                        {% for unit in units %}
+                            <li><a href="unit/{{ unit.name }}/">{{ unit.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li>
+                    <a href="contribute">Add Word</a>
+                </li>
+                <li>
+                    <a href="#">Restore Cards</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/about">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

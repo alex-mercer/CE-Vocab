@@ -1,0 +1,49 @@
+{% extends 'vocab/index.html' %}
+{% block content %}
+    <div style="margin:0px 20px">
+        {% if message %}
+        <div class="alert alert-info" role="alert">{{ message }}</div>
+        {% endif %}
+        <form action="" role="form" class="text-center" onsubmit="return check_form()" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" type="text" id="form_name" name="name" placeholder="Your name"/>
+                <input class="form-control" type="text" id="form_word" name="word" placeholder="Word" value="{{ entry.word }}"/>
+                <select class="form-control" id="form_unit" name="unit">
+                    <option disabled="disabled" selected value="-1">Select unit</option>
+                    {% for unit in units %}
+                        <option value="{{ unit.id }}">{{ unit.name }}</option>{% endfor %}
+                </select>
+                <input class="form-control" type="text" id="form_persian" name="persian_def" placeholder="معنی فارسی" dir="rtl" value="{{ entry.definition_fa }}"/>
+                <input class="form-control" type="text" id="form_english" name="english_def" placeholder="English Definition" value="{{ entry.definition_en }}"/>
+                <input class="form-control" type="text" id="form_example" name="examples" placeholder="Examples" value="{{ entry.example }}"/>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        $('#form_unit').val('{{ entry.unit.id|default:"-1" }}')
+        function check_form() {
+            word = $('#form_word').val();
+            unit = $('#form_unit').val();
+            pdef = $('#form_persian').val();
+            edef = $('#form_english').val();
+            if (word = "") {
+                alert("Please enter your word");
+                return false;
+            }
+            if (unit == null) {
+                alert("Please Select the word unit");
+                return false;
+            }
+            if (pdef == "" && edef == "") {
+                alert("Please enter at least one definition!");
+                return false;
+            }
+            return true;
+            iw
+        }
+    </script>
+{% endblock %}

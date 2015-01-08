@@ -147,6 +147,10 @@ function FlipCard() {
     });
 }
 
+function RestoreCards() {
+
+}
+
 $(document).ready(function () {
     //Configuration
     $.event.special.swipe.horizontalDistanceThreshold = 15;
@@ -242,7 +246,6 @@ $(document).ready(function () {
         else
             return;
         event.preventDefault()
-
     })
 })
 ;

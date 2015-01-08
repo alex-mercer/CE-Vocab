@@ -1,0 +1,55 @@
+{% extends 'vocab/index.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div id="previous-area" class="col-xs-1 empty-area" style="height:85%"></div>
+    <div class="col-xs-10" style="height: 85%; border: 3px #000000; overflow: hidden;padding:10px">
+        <div id="current" class="card" style="left:0%">
+            <button type="button" class="btn btn-info word-edit-button">
+                <span class="glyphicon glyphicon-pencil"></span></button>
+            <h1 class="wordTitle text-primary"><strong> word </strong></h1>
+
+            <h3 class="wordDef text-info"> definition </h3>
+
+            <h3 class="wordDefF text-info"> Persion definition </h3>
+
+        </div>
+
+        <div id="next" class="card" style="display: none; left:100%">
+            <button type="button" class="btn btn-info word-edit-button">
+                <span class="glyphicon glyphicon-pencil"></span></button>
+            <h1 class="wordTitle text-primary"><strong> word </strong></h1>
+
+            <h3 class="wordDef text-info"> definition </h3>
+
+            <h3 class="wordDefF text-info"> Persion definition </h3>
+        </div>
+    </div>
+    <div id="next-area" class="col-xs-1 empty-area" style="height:85%"></div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static "vocab/js/js.js" %}"></script>
+    <script type="text/javascript">
+        var currentCard = 0;
+        var mark;
+        var pageID = 0;
+        var words = [
+            {#            {"word": "amin", "edef": "khar", "fdef": "hi"},#}
+            {#            {"word": "emad", "edef": "khob", "fdef": "hi"},#}
+            {#            {"word": "mamad", "edef": "good", "fdef": "hi"},#}
+            {#            {"word": "shir", "edef": "gooooooooooooooooood", "fdef": "hi"},#}
+            {#            {"word": "Finished", "edef": "", "fdef": ""}#}
+        ];
+        {% for entry in entries %}
+            words.push({"word": "{{ entry.word }}", "edef": "{{ entry.definition_en|linebreaksbr|default:":(" }}", "fdef": "{{ entry.definition_fa|linebreaksbr|default:":(" }}"});{% endfor %}
+        words.push({"word": "Finished", "edef": "", "fdef": ""});
+        $(document).ready(function () {
+            mark = $.cookie(pageID + "markarr");
+            if (!mark)
+                mark = Array(words.length + 1).join('1');
+            currentCard = -1;
+            SetNextCardIndex(1);
+            BuildCard("current");
+        })
+    </script>
+{% endblock %}
