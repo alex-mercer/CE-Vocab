@@ -34,3 +34,5 @@ def contribute(request):
 
     return render(request, 'vocab/word.html', context)
 
+def cache(request):
+    return render(request, 'vocab/cache.html',content_type='text/cache-manifest')
