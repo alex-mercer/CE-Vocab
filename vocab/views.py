@@ -35,4 +35,7 @@ def contribute(request):
     return render(request, 'vocab/word.html', context)
 
 def cache(request):
-    return render(request, 'vocab/cache.html',content_type='text/cache-manifest')
+    import time
+
+    tt = int(time.time()) / 60
+    return render(request, 'vocab/cache.html', {'time': tt}, content_type='text/cache-manifest')
