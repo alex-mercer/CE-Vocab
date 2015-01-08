@@ -45,7 +45,8 @@ function SetUnit(unit) {
 }
 
 function SetUnitFancy(unit) {
-    $('#navbar-main').collapse('hide');
+    if($('#navbar-main').hasClass('in'))
+        $('#navbar-main').collapse('hide');
     setTimeout(function () {
         $('#current').fadeOut(function () {
             SetUnit(unit)
