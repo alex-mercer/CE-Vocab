@@ -22,7 +22,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Units<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" aria-labelledby="themes">
-                        <li><a href="../default/">All units</a></li>
+                        <li><a href="#" onclick="SetUnitFancy(-1)">All units</a></li>
                         <li class="divider"></li>
                         {% for unit in units %}
                             <li><a href="#" onclick="SetUnitFancy({{ unit.id }})">{{ unit.name }}</a></li>
