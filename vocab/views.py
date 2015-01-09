@@ -3,12 +3,7 @@ from django.shortcuts import render
 import models
 
 def index(request):
-    return render(request, 'vocab/card.html', {'entries': models.Entry.objects.all()})
-
-
-def about(request):
-    return render(request, 'vocab/about.html')
-
+    return render(request, 'vocab/card.html', {'entries': models.Entry.objects.all().order_by('id')})
 
 def contribute(request):
     context = {}
